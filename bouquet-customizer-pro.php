@@ -5,7 +5,7 @@
  * Version: 2.0.2
  * Author: On Virtual World Team
  * Text Domain: bouquet-customizer-pro
- * Domain Path: /languages
+ * Domain Path: GitHub Plugin URI: ShowrabM/Bouquet-Customizer-Pro
  */
 
 defined( 'ABSPATH' ) || exit;
