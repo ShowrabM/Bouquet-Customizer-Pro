@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200" viewBox="0 0 360 200">
+  <defs>
+    <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff4e5"/>
+      <stop offset="100%" stop-color="#ffe0b5"/>
+    </linearGradient>
+  </defs>
+  <rect width="360" height="200" rx="16" fill="url(#g3)"/>
+  <circle cx="98" cy="104" r="54" fill="#f97316" opacity="0.15"/>
+  <path d="M76 116c16-10 34-14 54-12l12-26 46 18-14 36c-6 14-20 24-36 26-36 4-56-18-62-42z" fill="#f97316" opacity="0.55"/>
+  <text x="198" y="112" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#c2410c">Optimizer</text>
+  <text x="200" y="142" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#9a3412">WebP · AVIF · CDN</text>
+</svg>

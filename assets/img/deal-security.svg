@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200" viewBox="0 0 360 200">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e7fff7"/>
+      <stop offset="100%" stop-color="#c7f3f1"/>
+    </linearGradient>
+  </defs>
+  <rect width="360" height="200" rx="16" fill="url(#g2)"/>
+  <path d="M96 56h168v78c0 28-42 54-84 54s-84-26-84-54V56z" fill="#0f7f7d" opacity="0.12"/>
+  <path d="M126 74h108v60c0 20-26 38-54 38s-54-18-54-38V74z" fill="#0f7f7d" opacity="0.22"/>
+  <path d="M156 94h48v24h-48z" fill="#0f7f7d"/>
+  <circle cx="180" cy="106" r="12" fill="#ffffff"/>
+  <path d="M176 108l4 4 8-10" stroke="#0f7f7d" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="180" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#0f7f7d">Shield</text>
+</svg>

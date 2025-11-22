@@ -362,6 +362,29 @@ body.bq-modal-open {
         gap: 1rem;
     }
 
+    /* Keep the preview visible while scrolling options */
+    .bq-preview-panel {
+        position: sticky;
+        top: 0;
+        z-index: 12;
+        padding-top: 0.35rem;
+        padding-bottom: 0.75rem;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(253, 244, 255, 0.94));
+        backdrop-filter: blur(3px);
+        border-bottom: 1px solid rgba(31, 56, 217, 0.08);
+    }
+
+    .bq-preview-stage {
+        max-width: 420px;
+        margin: 0 auto;
+        box-shadow: 0 10px 26px rgba(29, 126, 247, 0.12);
+    }
+
+    .bq-total-price-label {
+        margin: 0.65rem 0 0;
+        text-align: center;
+    }
+
     .bq-step-list {
         max-height: none;
     }

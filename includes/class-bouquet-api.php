@@ -116,6 +116,7 @@ class Bouquet_Customizer_API {
                     'group_id' => $config['group_id'] ?? 0,
                     'selected' => $sanitized,
                     'base'     => $config,
+                    'preview'  => $preview,
                 ],
                 'bq_price'   => $total_price,
                 'bq_preview' => $preview,
@@ -246,6 +247,7 @@ class Bouquet_Customizer_API {
                 'layers'       => $layers,
                 'color'        => sanitize_hex_color( $option_data['color'] ?? '' ),
                 'customValue'  => $custom_value,
+                'custom_value' => $custom_value, // keep both shapes for front-end/back-end consumers
                 'customPrice'  => $custom_price,
             ];
 

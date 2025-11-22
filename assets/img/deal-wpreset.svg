@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200" viewBox="0 0 360 200">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#dceafe"/>
+    </linearGradient>
+  </defs>
+  <rect width="360" height="200" rx="16" fill="url(#g1)"/>
+  <circle cx="82" cy="100" r="46" fill="#1e4fd5" opacity="0.15"/>
+  <rect x="48" y="76" width="110" height="48" rx="10" fill="#1e4fd5"/>
+  <text x="103" y="106" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#ffffff">WP</text>
+  <text x="190" y="126" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#1d2a4a" opacity="0.82">Reset</text>
+</svg>

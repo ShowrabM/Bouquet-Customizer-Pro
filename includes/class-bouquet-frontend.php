@@ -6,7 +6,9 @@ class Bouquet_Customizer_Frontend {
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_front_assets' ] );
         add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'render_customizer_trigger' ] );
         add_filter( 'woocommerce_add_cart_item_data', [ $this, 'add_cart_item_data' ], 10, 3 );
+        add_filter( 'woocommerce_get_cart_item_from_session', [ $this, 'restore_cart_item_data' ], 10, 2 );
         add_filter( 'woocommerce_get_item_data', [ $this, 'display_cart_item_data' ], 10, 2 );
+        add_filter( 'woocommerce_cart_item_thumbnail', [ $this, 'render_cart_preview_thumbnail' ], 10, 3 );
         add_action( 'woocommerce_before_calculate_totals', [ $this, 'apply_custom_price' ] );
         add_action( 'woocommerce_checkout_create_order_line_item', [ $this, 'persist_order_data' ], 10, 4 );
         add_action( 'woocommerce_after_order_itemmeta', [ $this, 'render_order_preview' ], 10, 3 );
@@ -184,7 +186,32 @@ class Bouquet_Customizer_Frontend {
         }
 
         $cart_item_data['bq_meta'] = $cart_item_data['bq_config'];
+
+        // If preview came through POST (non-REST add to cart), capture it.
+        if ( empty( $cart_item_data['bq_preview'] ) && isset( $_POST['bq_preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            $cart_item_data['bq_preview'] = $this->sanitize_preview_payload( wp_unslash( $_POST['bq_preview'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        }
+        if ( empty( $cart_item_data['bq_config']['preview'] ) && ! empty( $cart_item_data['bq_preview'] ) ) {
+            $cart_item_data['bq_config']['preview'] = $cart_item_data['bq_preview'];
+        }
+
         return $cart_item_data;
+    }
+
+    /**
+     * Restore bouquet data from cart session.
+     */
+    public function restore_cart_item_data( $cart_item, $values ) {
+        if ( isset( $values['bq_config'] ) ) {
+            $cart_item['bq_config'] = $values['bq_config'];
+        }
+        if ( isset( $values['bq_preview'] ) ) {
+            $cart_item['bq_preview'] = $values['bq_preview'];
+        }
+        if ( isset( $values['bq_price'] ) ) {
+            $cart_item['bq_price'] = $values['bq_price'];
+        }
+        return $cart_item;
     }
 
     /**
@@ -198,7 +225,12 @@ class Bouquet_Customizer_Frontend {
         $selected = $cart_item['bq_config']['selected'] ?? [];
         $rows     = [];
         foreach ( $selected as $choice ) {
-            $rows[] = esc_html( $choice['stepTitle'] ?? '' ) . ': ' . esc_html( $choice['optionTitle'] ?? '' );
+            $label      = $choice['optionTitle'] ?? '';
+            $custom_val = $choice['customValue'] ?? ( $choice['custom_value'] ?? '' );
+            if ( $custom_val ) {
+                $label .= ' (' . $custom_val . ')';
+            }
+            $rows[] = esc_html( $choice['stepTitle'] ?? '' ) . ': ' . esc_html( $label );
         }
 
         if ( $rows ) {
@@ -209,6 +241,27 @@ class Bouquet_Customizer_Frontend {
         }
 
         return $item_data;
+    }
+
+    /**
+     * Replace cart thumbnail with bouquet preview when available.
+     */
+    public function render_cart_preview_thumbnail( $product_thumbnail, $cart_item, $cart_item_key ) {
+        $preview = $cart_item['bq_preview'] ?? '';
+        if ( ! $preview && ! empty( $cart_item['bq_config']['preview'] ) ) {
+            $preview = $cart_item['bq_config']['preview'];
+        }
+        if ( ! $preview ) {
+            return $product_thumbnail;
+        }
+
+        $src = strpos( $preview, 'data:image' ) === 0 ? $preview : esc_url( $preview );
+
+        return sprintf(
+            '<img src="%s" alt="%s" style="width:90px;height:auto;border:1px solid #e1e4ed;border-radius:6px;padding:3px;" />',
+            $src,
+            esc_attr__( 'Bouquet preview', 'bouquet-customizer-pro' )
+        );
     }
 
     /**
@@ -304,6 +357,12 @@ class Bouquet_Customizer_Frontend {
         foreach ( $selected as $choice ) {
             $step  = sanitize_text_field( $choice['stepTitle'] ?? '' );
             $label = sanitize_text_field( $choice['optionTitle'] ?? '' );
+            $custom_val = isset( $choice['customValue'] )
+                ? sanitize_text_field( $choice['customValue'] )
+                : ( isset( $choice['custom_value'] ) ? sanitize_text_field( $choice['custom_value'] ) : '' );
+            if ( $custom_val ) {
+                $label .= ' (' . $custom_val . ')';
+            }
             if ( ! $step && ! $label ) {
                 continue;
             }
@@ -311,6 +370,23 @@ class Bouquet_Customizer_Frontend {
         }
 
         return implode( "\n", $lines );
+    }
+
+    /**
+     * Allow data URLs or absolute URLs for previews without corrupting base64.
+     *
+     * @param string $value
+     * @return string
+     */
+    private function sanitize_preview_payload( $value ) {
+        if ( ! is_string( $value ) ) {
+            return '';
+        }
+        $value = trim( $value );
+        if ( 0 === strpos( $value, 'data:image' ) ) {
+            return $value;
+        }
+        return esc_url_raw( $value );
     }
 
     /**

@@ -1,0 +1,341 @@
+.bq-deals {
+    font-family: inherit;
+    color: #1b2335;
+    background: linear-gradient(180deg, #f7f9ff, #fdf7ff);
+    border: 1px solid rgba(29, 126, 247, 0.08);
+    border-radius: 18px;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    box-shadow: 0 22px 60px rgba(23, 53, 109, 0.12);
+}
+
+.bq-deals__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.bq-deals__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    margin: 0 0 0.3rem 0;
+    color: #5c6a8c;
+}
+
+.bq-deals__lede {
+    margin: 0.25rem 0 0;
+    color: #4c5772;
+}
+
+.bq-deals__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.bq-deal-card {
+    background: #ffffff;
+    border: 1px solid #e6eaf4;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 14px 30px rgba(13, 36, 91, 0.08);
+}
+
+.bq-deal-card__media {
+    position: relative;
+    background: #f4f7ff;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bq-deal-card__media img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.bq-deal-card__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #1d7ef7;
+    color: #fff;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(29, 126, 247, 0.2);
+}
+
+.bq-deal-card__body {
+    padding: 1rem 1.1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+}
+
+.bq-deal-card__body h3 {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.bq-deal-card__tagline {
+    margin: 0;
+    color: #4c5772;
+    font-size: 0.95rem;
+}
+
+.bq-deal-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.2rem;
+}
+
+.bq-deal-card__price {
+    font-weight: 700;
+    color: #1d2a4a;
+}
+
+.bq-deal-card__pill {
+    background: #eef4ff;
+    color: #1d7ef7;
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.bq-deal-card__actions {
+    margin-top: auto;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.bq-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    line-height: 1.1;
+}
+
+.bq-button--primary {
+    background: linear-gradient(135deg, #1d7ef7, #5f9bff);
+    color: #fff;
+    border-color: #1d7ef7;
+    box-shadow: 0 12px 25px rgba(29, 126, 247, 0.22);
+}
+
+.bq-button--primary:hover {
+    box-shadow: 0 14px 30px rgba(29, 126, 247, 0.3);
+    transform: translateY(-1px);
+}
+
+.bq-button--ghost {
+    background: #f6f8fc;
+    color: #273045;
+    border-color: #e6eaf4;
+}
+
+.bq-button--ghost:hover {
+    border-color: #cdd6f3;
+}
+
+.bq-deal-modal {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 999999;
+}
+
+.bq-deal-modal[hidden] {
+    display: none;
+}
+
+.bq-deal-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 12, 31, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.bq-deal-modal__dialog {
+    position: relative;
+    background: #fff;
+    width: min(960px, 95vw);
+    max-height: 90vh;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 30px 100px rgba(7, 24, 62, 0.4);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+body.bq-deal-modal-open {
+    overflow: hidden;
+}
+
+.bq-deal-modal__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border: none;
+    background: #f3f6ff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    color: #1d2a4a;
+}
+
+.bq-deal-modal__header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.25rem 1.4rem 0.8rem;
+    border-bottom: 1px solid #e8ecf5;
+}
+
+.bq-deal-modal__logo {
+    width: 96px;
+    height: 96px;
+    border-radius: 12px;
+    background: #f4f7ff;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid #e2e8f6;
+}
+
+.bq-deal-modal__logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bq-deal-modal__tagline {
+    margin: 0.2rem 0 0.4rem;
+    color: #4c5772;
+}
+
+.bq-deal-modal__meta {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+.bq-deal-modal__price {
+    font-weight: 800;
+    color: #1d2a4a;
+}
+
+.bq-deal-modal__pill {
+    background: #eef4ff;
+    color: #1d7ef7;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+.bq-deal-tabs {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.75rem 0.8rem 0;
+    border-bottom: 1px solid #e8ecf5;
+}
+
+.bq-deal-tab {
+    background: transparent;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 10px 10px 0 0;
+    color: #4c5772;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.bq-deal-tab.is-active {
+    background: #ffffff;
+    color: #1d2a4a;
+    border: 1px solid #e8ecf5;
+    border-bottom-color: #ffffff;
+}
+
+.bq-deal-tabpanels {
+    padding: 0.9rem 1.4rem 1.2rem;
+    overflow-y: auto;
+    max-height: 50vh;
+}
+
+.bq-deal-panel {
+    display: none;
+    color: #2f3a55;
+    line-height: 1.6;
+}
+
+.bq-deal-panel.is-active {
+    display: block;
+}
+
+.bq-deal-panel ul,
+.bq-deal-panel ol {
+    padding-left: 1.25rem;
+}
+
+.bq-deal-panel h4 {
+    margin-bottom: 0.25rem;
+}
+
+.bq-deal-modal__footer {
+    padding: 0.9rem 1.4rem 1.2rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    border-top: 1px solid #e8ecf5;
+}
+
+@media (max-width: 720px) {
+    .bq-deal-modal__dialog {
+        width: 95vw;
+        max-height: 88vh;
+        border-radius: 14px;
+    }
+    .bq-deal-modal__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .bq-deal-tabs {
+        flex-wrap: wrap;
+    }
+    .bq-deal-panel ul,
+    .bq-deal-panel ol {
+        padding-left: 1rem;
+    }
+    .bq-deal-card__actions {
+        flex-direction: column;
+    }
+    .bq-button {
+        width: 100%;
+        justify-content: center;
+    }
+}

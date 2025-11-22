@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Bouquet Customizer Pro
  * Description: Dynamic WooCommerce bouquet builder with layered PNG preview.
- * Version: 2.0.2
+ * Version: 2.0.3
  * Author: On Virtual World Team
  * Text Domain: bouquet-customizer-pro
  * Domain Path: GitHub Plugin URI: ShowrabM/Bouquet-Customizer-Pro
@@ -28,6 +28,8 @@ define( 'BQP_VERSION', ! empty( $plugin_data['Version'] ) ? $plugin_data['Versio
 require_once BQP_PATH . '/includes/class-bouquet-admin.php';
 require_once BQP_PATH . '/includes/class-bouquet-frontend.php';
 require_once BQP_PATH . '/includes/class-bouquet-api.php';
+require_once BQP_PATH . '/includes/class-bouquet-deals.php';
+require_once BQP_PATH . '/includes/class-bouquet-plugin-info.php';
 
 /**
  * Build a cache-busting asset version string.
@@ -661,6 +663,8 @@ function bq_init_plugin() {
     new Bouquet_Customizer_Admin();
     new Bouquet_Customizer_Frontend();
     new Bouquet_Customizer_API();
+    new Bouquet_Customizer_Deals();
+    new Bouquet_Customizer_Plugin_Info();
 }
 
 add_action( 'plugins_loaded', 'bq_init_plugin' );
